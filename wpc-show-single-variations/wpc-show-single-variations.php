@@ -3,16 +3,16 @@
  * Plugin Name: WPC Show Single Variations for WooCommerce
  * Plugin URI: https://wpclever.net/
  * Description: WPC Show Single Variations helps you show all variations as single products on the archive pages.
- * Version: 2.4.0
+ * Version: 2.4.1
  * Author: WPClever
  * Author URI: https://wpclever.net
  * Text Domain: wpc-show-single-variations
  * Domain Path: /languages/
  * Requires Plugins: woocommerce
  * Requires at least: 4.0
- * Tested up to: 6.6
+ * Tested up to: 6.7
  * WC requires at least: 3.0
- * WC tested up to: 9.1
+ * WC tested up to: 9.3
  **/
 
 defined( 'ABSPATH' ) || exit;
@@ -27,7 +27,7 @@ if ( ! class_exists( 'WPCleverWoosv' ) && class_exists( 'WC_Product' ) ) {
 		}
 
 		private function define_constants() {
-			! defined( 'WOOSV_VERSION' ) && define( 'WOOSV_VERSION', '2.4.0' );
+			! defined( 'WOOSV_VERSION' ) && define( 'WOOSV_VERSION', '2.4.1' );
 			! defined( 'WOOSV_LITE' ) && define( 'WOOSV_LITE', __FILE__ );
 			! defined( 'WOOSV_FILE' ) && define( 'WOOSV_FILE', __FILE__ );
 			! defined( 'WOOSV_URI' ) && define( 'WOOSV_URI', plugin_dir_url( __FILE__ ) );

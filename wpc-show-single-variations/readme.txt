@@ -3,9 +3,9 @@ Contributors: wpclever
 Donate link: https://wpclever.net
 Tags: woocommerce, wpc, single variation, variation
 Requires at least: 4.0
-Tested up to: 6.6
-Version: 2.4.0
-Stable tag: 2.4.0
+Tested up to: 6.7
+Version: 2.4.1
+Stable tag: 2.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,6 +52,9 @@ Please try other plugins from us:
 5. Go to each variation to enable/disable/reverse for the individual variation
 
 == Changelog ==
+
+= 2.4.1 =
+* Updated: Optimized the code
 
 = 2.4.0 =
 * Fixed: Minor CSS/JS issues in the backend
