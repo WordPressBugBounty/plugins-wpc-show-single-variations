@@ -3,7 +3,7 @@
  * Plugin Name: WPC Show Single Variations for WooCommerce
  * Plugin URI: https://wpclever.net/
  * Description: WPC Show Single Variations helps you show all variations as single products on the archive pages.
- * Version: 2.4.1
+ * Version: 2.4.2
  * Author: WPClever
  * Author URI: https://wpclever.net
  * Text Domain: wpc-show-single-variations
@@ -12,7 +12,9 @@
  * Requires at least: 4.0
  * Tested up to: 6.7
  * WC requires at least: 3.0
- * WC tested up to: 9.3
+ * WC tested up to: 9.5
+ * License: GPLv2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  **/
 
 defined( 'ABSPATH' ) || exit;
@@ -27,11 +29,11 @@ if ( ! class_exists( 'WPCleverWoosv' ) && class_exists( 'WC_Product' ) ) {
 		}
 
 		private function define_constants() {
-			! defined( 'WOOSV_VERSION' ) && define( 'WOOSV_VERSION', '2.4.1' );
+			! defined( 'WOOSV_VERSION' ) && define( 'WOOSV_VERSION', '2.4.2' );
 			! defined( 'WOOSV_LITE' ) && define( 'WOOSV_LITE', __FILE__ );
 			! defined( 'WOOSV_FILE' ) && define( 'WOOSV_FILE', __FILE__ );
 			! defined( 'WOOSV_URI' ) && define( 'WOOSV_URI', plugin_dir_url( __FILE__ ) );
-			! defined( 'WOOSV_BASE' ) && define( 'WOOSV_BASE', plugin_basename( __FILE__ ) );
+			! defined( 'WOOSV_DIR' ) && define( 'WOOSV_DIR', plugin_dir_path( __FILE__ ) );
 			! defined( 'WOOSV_REVIEWS' ) && define( 'WOOSV_REVIEWS', 'https://wordpress.org/support/plugin/wpc-show-single-variations/reviews/?filter=5' );
 			! defined( 'WOOSV_CHANGELOG' ) && define( 'WOOSV_CHANGELOG', 'https://wordpress.org/plugins/wpc-show-single-variations/#developers' );
 			! defined( 'WOOSV_DISCUSSION' ) && define( 'WOOSV_DISCUSSION', 'https://wordpress.org/support/plugin/wpc-show-single-variations' );
@@ -49,7 +51,8 @@ if ( ! class_exists( 'WPCleverWoosv' ) && class_exists( 'WC_Product' ) ) {
 
 		private function admin_hooks() {
 			$woosv_admin = Woosv_Admin::instance();
-			add_action( 'admin_enqueue_scripts', [ $woosv_admin, 'admin_enqueue_scripts' ], 99 );
+			add_action( 'init', [ $woosv_admin, 'init' ] );
+			add_action( 'admin_enqueue_scripts', [ $woosv_admin, 'admin_enqueue_scripts' ] );
 			add_action( 'admin_menu', [ $woosv_admin, 'admin_menu' ] );
 			add_action( 'admin_init', [ $woosv_admin, 'register_settings' ] );
 			add_filter( 'plugin_action_links', [ $woosv_admin, 'action_links' ], 10, 2 );

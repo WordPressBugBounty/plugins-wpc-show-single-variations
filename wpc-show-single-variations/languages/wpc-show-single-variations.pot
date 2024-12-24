@@ -1,21 +1,21 @@
 # Copyright (C) 2024 WPClever
-# This file is distributed under the same license as the WPC Show Single Variations for WooCommerce plugin.
+# This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPC Show Single Variations for WooCommerce 2.4.1\n"
+"Project-Id-Version: WPC Show Single Variations for WooCommerce 2.4.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpc-show-single-variations\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-11-10T03:03:00+00:00\n"
+"POT-Creation-Date: 2024-12-24T03:48:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: wpc-show-single-variations\n"
 
 #. Plugin Name of the plugin
-#: includes/class-admin.php:25
+#: includes/class-admin.php:30
 msgid "WPC Show Single Variations for WooCommerce"
 msgstr ""
 
@@ -35,112 +35,112 @@ msgstr ""
 msgid "https://wpclever.net"
 msgstr ""
 
-#: includes/class-admin.php:26
+#: includes/class-admin.php:31
 msgid "Show Single Variations"
 msgstr ""
 
-#: includes/class-admin.php:45
-#: includes/class-admin.php:267
+#: includes/class-admin.php:50
+#: includes/class-admin.php:284
 msgid "WPC Show Single Variations"
 msgstr ""
 
 #. translators: stars
-#: includes/class-admin.php:48
+#: includes/class-admin.php:53
 msgid "Thank you for using our plugin! If you are satisfied, please reward it a full five-star %s rating."
 msgstr ""
 
-#: includes/class-admin.php:50
+#: includes/class-admin.php:55
 msgid "Reviews"
 msgstr ""
 
-#: includes/class-admin.php:51
+#: includes/class-admin.php:56
 msgid "Changelog"
 msgstr ""
 
-#: includes/class-admin.php:52
+#: includes/class-admin.php:57
 msgid "Discussion"
 msgstr ""
 
-#: includes/class-admin.php:58
-#: includes/class-admin.php:246
+#: includes/class-admin.php:63
+#: includes/class-admin.php:257
 msgid "Settings"
 msgstr ""
 
-#: includes/class-admin.php:61
+#: includes/class-admin.php:66
 msgid "Tools"
 msgstr ""
 
-#: includes/class-admin.php:64
+#: includes/class-admin.php:69
 msgid "Essential Kit"
 msgstr ""
 
-#: includes/class-admin.php:73
-#: includes/class-admin.php:272
-#: includes/class-admin.php:277
+#: includes/class-admin.php:78
+#: includes/class-admin.php:289
+#: includes/class-admin.php:294
 msgid "Enable"
 msgstr ""
 
-#: includes/class-admin.php:76
+#: includes/class-admin.php:81
 msgid "Enable show single variations on archive page. You also can enable/disable at variation basis."
 msgstr ""
 
-#: includes/class-admin.php:80
+#: includes/class-admin.php:85
 msgid "Hide variable"
 msgstr ""
 
-#: includes/class-admin.php:83
+#: includes/class-admin.php:88
 msgid "Hide variable products on archive page."
 msgstr ""
 
-#: includes/class-admin.php:87
+#: includes/class-admin.php:92
 msgid "Exclude from hide variable"
 msgstr ""
 
-#: includes/class-admin.php:91
+#: includes/class-admin.php:96
 msgid "Search for a product&hellip;"
 msgstr ""
 
-#: includes/class-admin.php:104
+#: includes/class-admin.php:109
 msgid "Choose variable products that will not be hide."
 msgstr ""
 
-#: includes/class-admin.php:117
-#: includes/class-admin.php:215
+#: includes/class-admin.php:122
+#: includes/class-admin.php:220
 msgid "Re-init variations"
 msgstr ""
 
-#: includes/class-admin.php:198
+#: includes/class-admin.php:203
 msgid "Refreshing..."
 msgstr ""
 
-#: includes/class-admin.php:199
+#: includes/class-admin.php:204
 msgid "Please wait until it has finished!"
 msgstr ""
 
-#: includes/class-admin.php:212
+#: includes/class-admin.php:217
 msgid "Finished!"
 msgstr ""
 
-#: includes/class-admin.php:216
+#: includes/class-admin.php:221
 msgid "Re-init variations' data to make it works with product category/tag. This process may take a while."
 msgstr ""
 
-#: includes/class-admin.php:256
+#: includes/class-admin.php:273
 msgid "Community support"
 msgstr ""
 
-#: includes/class-admin.php:276
+#: includes/class-admin.php:293
 msgid "Default"
 msgstr ""
 
-#: includes/class-admin.php:278
+#: includes/class-admin.php:295
 msgid "Disable"
 msgstr ""
 
-#: includes/class-admin.php:279
+#: includes/class-admin.php:296
 msgid "Reverse"
 msgstr ""
 
-#: includes/class-admin.php:285
+#: includes/class-admin.php:302
 msgid "Custom name"
 msgstr ""

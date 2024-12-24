@@ -13,6 +13,11 @@ if ( ! class_exists( 'Woosv_Admin' ) ) {
 			return self::$instance;
 		}
 
+		public function init() {
+			// load text-domain
+			load_plugin_textdomain( 'wpc-show-single-variations', false, basename( WOOSV_DIR ) . '/languages/' );
+		}
+
 		public function admin_enqueue_scripts( $hook ) {
 			wp_enqueue_style( 'woosv-backend', WOOSV_URI . 'assets/css/backend.css', [ 'woocommerce_admin_styles' ], WOOSV_VERSION );
 			wp_enqueue_script( 'woosv-backend', WOOSV_URI . 'assets/js/backend.js', [
@@ -242,7 +247,13 @@ if ( ! class_exists( 'Woosv_Admin' ) ) {
 		}
 
 		public function action_links( $links, $file ) {
-			if ( WOOSV_BASE === $file ) {
+			static $plugin;
+
+			if ( ! isset( $plugin ) ) {
+				$plugin = plugin_basename( WOOSV_FILE );
+			}
+
+			if ( $plugin === $file ) {
 				$settings = '<a href="' . esc_url( admin_url( 'admin.php?page=wpclever-woosv&tab=settings' ) ) . '">' . esc_html__( 'Settings', 'wpc-show-single-variations' ) . '</a>';
 				array_unshift( $links, $settings );
 			}
@@ -251,7 +262,13 @@ if ( ! class_exists( 'Woosv_Admin' ) ) {
 		}
 
 		public function row_meta( $links, $file ) {
-			if ( WOOSV_BASE === $file ) {
+			static $plugin;
+
+			if ( ! isset( $plugin ) ) {
+				$plugin = plugin_basename( WOOSV_FILE );
+			}
+
+			if ( $plugin === $file ) {
 				$row_meta = [
 					'support' => '<a href="' . esc_url( WOOSV_DISCUSSION ) . '" target="_blank">' . esc_html__( 'Community support', 'wpc-show-single-variations' ) . '</a>',
 				];
