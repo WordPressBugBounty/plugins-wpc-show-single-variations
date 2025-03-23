@@ -2,10 +2,9 @@
 Contributors: wpclever
 Donate link: https://wpclever.net
 Tags: woocommerce, wpc, single variation, variation
-Requires at least: 4.0
 Tested up to: 6.7
-Version: 2.4.2
-Stable tag: 2.4.2
+Version: 2.4.3
+Stable tag: 2.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,6 +51,9 @@ Please try other plugins from us:
 5. Go to each variation to enable/disable/reverse for the individual variation
 
 == Changelog ==
+
+= 2.4.3 =
+* Updated: Compatible with WP 6.7 & Woo 9.7
 
 = 2.4.2 =
 * Updated: Optimized the code
