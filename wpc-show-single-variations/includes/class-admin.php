@@ -47,22 +47,40 @@ if ( ! class_exists( 'Woosv_Admin' ) ) {
 			$hide_parent_exclude = get_option( 'woosv_hide_parent_exclude' );
 			?>
             <div class="wpclever_settings_page wrap">
-                <h1 class="wpclever_settings_page_title"><?php echo esc_html__( 'WPC Show Single Variations', 'wpc-show-single-variations' ) . ' ' . esc_html( WOOSV_VERSION ); ?></h1>
-                <div class="wpclever_settings_page_desc about-text">
-                    <p>
-						<?php printf( /* translators: stars */ esc_html__( 'Thank you for using our plugin! If you are satisfied, please reward it a full five-star %s rating.', 'wpc-show-single-variations' ), '<span style="color:#ffb900">&#9733;&#9733;&#9733;&#9733;&#9733;</span>' ); ?>
-                        <br/>
-                        <a href="<?php echo esc_url( WOOSV_REVIEWS ); ?>" target="_blank"><?php esc_html_e( 'Reviews', 'wpc-show-single-variations' ); ?></a> |
-                        <a href="<?php echo esc_url( WOOSV_CHANGELOG ); ?>" target="_blank"><?php esc_html_e( 'Changelog', 'wpc-show-single-variations' ); ?></a> |
-                        <a href="<?php echo esc_url( WOOSV_DISCUSSION ); ?>" target="_blank"><?php esc_html_e( 'Discussion', 'wpc-show-single-variations' ); ?></a>
-                    </p>
+                <div class="wpclever_settings_page_header">
+                    <a class="wpclever_settings_page_header_logo" href="https://wpclever.net/"
+                       target="_blank" title="Visit wpclever.net"></a>
+                    <div class="wpclever_settings_page_header_text">
+                        <div class="wpclever_settings_page_title"><?php echo esc_html__( 'WPC Show Single Variations', 'wpc-show-single-variations' ) . ' ' . esc_html( WOOSV_VERSION ); ?></div>
+                        <div class="wpclever_settings_page_desc about-text">
+                            <p>
+								<?php printf( /* translators: stars */ esc_html__( 'Thank you for using our plugin! If you are satisfied, please reward it a full five-star %s rating.', 'wpc-show-single-variations' ), '<span style="color:#ffb900">&#9733;&#9733;&#9733;&#9733;&#9733;</span>' ); ?>
+                                <br/>
+                                <a href="<?php echo esc_url( WOOSV_REVIEWS ); ?>"
+                                   target="_blank"><?php esc_html_e( 'Reviews', 'wpc-show-single-variations' ); ?></a> |
+                                <a href="<?php echo esc_url( WOOSV_CHANGELOG ); ?>"
+                                   target="_blank"><?php esc_html_e( 'Changelog', 'wpc-show-single-variations' ); ?></a>
+                                |
+                                <a href="<?php echo esc_url( WOOSV_DISCUSSION ); ?>"
+                                   target="_blank"><?php esc_html_e( 'Discussion', 'wpc-show-single-variations' ); ?></a>
+                            </p>
+                        </div>
+                    </div>
                 </div>
+                <h2></h2>
+				<?php if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] ) { ?>
+                    <div class="notice notice-success is-dismissible">
+                        <p><?php esc_html_e( 'Settings updated.', 'wpc-show-single-variations' ); ?></p>
+                    </div>
+				<?php } ?>
                 <div class="wpclever_settings_page_nav">
                     <h2 class="nav-tab-wrapper">
-                        <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-woosv&tab=settings' ) ); ?>" class="<?php echo $active_tab === 'settings' ? 'nav-tab nav-tab-active' : 'nav-tab'; ?>">
+                        <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-woosv&tab=settings' ) ); ?>"
+                           class="<?php echo $active_tab === 'settings' ? 'nav-tab nav-tab-active' : 'nav-tab'; ?>">
 							<?php esc_html_e( 'Settings', 'wpc-show-single-variations' ); ?>
                         </a>
-                        <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-woosv&tab=tools' ) ); ?>" class="<?php echo $active_tab === 'tools' ? 'nav-tab nav-tab-active' : 'nav-tab'; ?>">
+                        <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-woosv&tab=tools' ) ); ?>"
+                           class="<?php echo $active_tab === 'tools' ? 'nav-tab nav-tab-active' : 'nav-tab'; ?>">
 							<?php esc_html_e( 'Tools', 'wpc-show-single-variations' ); ?>
                         </a>
                         <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-kit' ) ); ?>" class="nav-tab">
@@ -77,23 +95,31 @@ if ( ! class_exists( 'Woosv_Admin' ) ) {
                                 <tr>
                                     <th><?php esc_html_e( 'Enable', 'wpc-show-single-variations' ); ?></th>
                                     <td>
-                                        <input type="checkbox" class="field-control" id="woosv_enable" name="woosv_enable" value="yes" <?php echo( ( $enable === 'yes' ) ? 'checked' : '' ); ?>/>
+                                        <input type="checkbox" class="field-control" id="woosv_enable"
+                                               name="woosv_enable"
+                                               value="yes" <?php echo( ( $enable === 'yes' ) ? 'checked' : '' ); ?>/>
                                         <label for="woosv_enable"><?php esc_html_e( 'Enable show single variations on archive page. You also can enable/disable at variation basis.', 'wpc-show-single-variations' ); ?></label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th><?php esc_html_e( 'Hide variable', 'wpc-show-single-variations' ); ?></th>
                                     <td>
-                                        <input type="checkbox" class="field-control" id="woosv_hide_parent" name="woosv_hide_parent" value="yes" <?php echo( ( $hide_parent === 'yes' ) ? 'checked' : '' ); ?>/>
+                                        <input type="checkbox" class="field-control" id="woosv_hide_parent"
+                                               name="woosv_hide_parent"
+                                               value="yes" <?php echo( ( $hide_parent === 'yes' ) ? 'checked' : '' ); ?>/>
                                         <label for="woosv_hide_parent"><?php esc_html_e( 'Hide variable products on archive page.', 'wpc-show-single-variations' ); ?></label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th><?php esc_html_e( 'Exclude from hide variable', 'wpc-show-single-variations' ); ?></th>
                                     <td>
-                                        <input type="hidden" name="woosv_hide_parent_exclude" value="<?php echo esc_attr( $hide_parent_exclude ); ?>"/>
+                                        <input type="hidden" name="woosv_hide_parent_exclude"
+                                               value="<?php echo esc_attr( $hide_parent_exclude ); ?>"/>
                                         <label>
-                                            <select class="wc-product-search woosv-product-search" multiple="multiple" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'wpc-show-single-variations' ); ?>" data-action="woocommerce_json_search_products_and_variations" data-exclude_type="variation,simple">
+                                            <select class="wc-product-search woosv-product-search" multiple="multiple"
+                                                    data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'wpc-show-single-variations' ); ?>"
+                                                    data-action="woocommerce_json_search_products_and_variations"
+                                                    data-exclude_type="variation,simple">
 												<?php
 												$_product_ids = explode( ',', $hide_parent_exclude );
 
@@ -204,13 +230,13 @@ if ( ! class_exists( 'Woosv_Admin' ) ) {
 											echo '<p class="description">' . esc_html__( 'Please wait until it has finished!', 'wpc-show-single-variations' ) . '</p>';
 											?>
                                             <script type="text/javascript">
-                                              (function($) {
-                                                $(function() {
-                                                  setTimeout(function() {
-                                                    window.location.href = '<?php echo admin_url( 'admin.php?page=wpclever-woosv&tab=tools&act=init&num=' . $num . '&paged=' . ( $paged + 1 ) ); ?>';
-                                                  }, 1000);
-                                                });
-                                              })(jQuery);
+                                                (function ($) {
+                                                    $(function () {
+                                                        setTimeout(function () {
+                                                            window.location.href = '<?php echo admin_url( 'admin.php?page=wpclever-woosv&tab=tools&act=init&num=' . $num . '&paged=' . ( $paged + 1 ) ); ?>';
+                                                        }, 1000);
+                                                    });
+                                                })(jQuery);
                                             </script>
 											<?php
 										} else {
@@ -233,12 +259,15 @@ if ( ! class_exists( 'Woosv_Admin' ) ) {
                     <div class="wpclever_settings_page_suggestion_content">
                         <div>
                             To display custom engaging real-time messages on any wished positions, please install
-                            <a href="https://wordpress.org/plugins/wpc-smart-messages/" target="_blank">WPC Smart Messages</a> plugin. It's free!
+                            <a href="https://wordpress.org/plugins/wpc-smart-messages/" target="_blank">WPC Smart
+                                Messages</a> plugin. It's free!
                         </div>
                         <div>
                             Wanna save your precious time working on variations? Try our brand-new free plugin
-                            <a href="https://wordpress.org/plugins/wpc-variation-bulk-editor/" target="_blank">WPC Variation Bulk Editor</a> and
-                            <a href="https://wordpress.org/plugins/wpc-variation-duplicator/" target="_blank">WPC Variation Duplicator</a>.
+                            <a href="https://wordpress.org/plugins/wpc-variation-bulk-editor/" target="_blank">WPC
+                                Variation Bulk Editor</a> and
+                            <a href="https://wordpress.org/plugins/wpc-variation-duplicator/" target="_blank">WPC
+                                Variation Duplicator</a>.
                         </div>
                     </div>
                 </div>
