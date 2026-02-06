@@ -31,6 +31,18 @@ if ( ! class_exists( 'Woosv_Helper' ) ) {
 
 			return apply_filters( 'woosv_get_setting', $setting, $name, $default );
 		}
+
+		public static function sanitize_array( $arr ) {
+			foreach ( (array) $arr as $k => $v ) {
+				if ( is_array( $v ) ) {
+					$arr[ $k ] = self::sanitize_array( $v );
+				} else {
+					$arr[ $k ] = sanitize_post_field( 'post_content', $v, 0, 'db' );
+				}
+			}
+
+			return $arr;
+		}
 	}
 
 	return Woosv_Helper::instance();

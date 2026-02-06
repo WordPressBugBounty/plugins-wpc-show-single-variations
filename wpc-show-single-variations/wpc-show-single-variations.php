@@ -3,16 +3,16 @@
  * Plugin Name: WPC Show Single Variations for WooCommerce
  * Plugin URI: https://wpclever.net/
  * Description: WPC Show Single Variations helps you show all variations as single products on the archive pages.
- * Version: 2.4.4
+ * Version: 2.4.6
  * Author: WPClever
  * Author URI: https://wpclever.net
  * Text Domain: wpc-show-single-variations
  * Domain Path: /languages/
  * Requires Plugins: woocommerce
  * Requires at least: 4.0
- * Tested up to: 6.8
+ * Tested up to: 6.9
  * WC requires at least: 3.0
- * WC tested up to: 9.9
+ * WC tested up to: 10.4
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  **/
@@ -29,12 +29,12 @@ if ( ! class_exists( 'WPCleverWoosv' ) && class_exists( 'WC_Product' ) ) {
 		}
 
 		private function define_constants() {
-			! defined( 'WOOSV_VERSION' ) && define( 'WOOSV_VERSION', '2.4.4' );
+			! defined( 'WOOSV_VERSION' ) && define( 'WOOSV_VERSION', '2.4.6' );
 			! defined( 'WOOSV_LITE' ) && define( 'WOOSV_LITE', __FILE__ );
 			! defined( 'WOOSV_FILE' ) && define( 'WOOSV_FILE', __FILE__ );
 			! defined( 'WOOSV_URI' ) && define( 'WOOSV_URI', plugin_dir_url( __FILE__ ) );
 			! defined( 'WOOSV_DIR' ) && define( 'WOOSV_DIR', plugin_dir_path( __FILE__ ) );
-			! defined( 'WOOSV_REVIEWS' ) && define( 'WOOSV_REVIEWS', 'https://wordpress.org/support/plugin/wpc-show-single-variations/reviews/?filter=5' );
+			! defined( 'WOOSV_REVIEWS' ) && define( 'WOOSV_REVIEWS', 'https://wordpress.org/support/plugin/wpc-show-single-variations/reviews/' );
 			! defined( 'WOOSV_CHANGELOG' ) && define( 'WOOSV_CHANGELOG', 'https://wordpress.org/plugins/wpc-show-single-variations/#developers' );
 			! defined( 'WOOSV_DISCUSSION' ) && define( 'WOOSV_DISCUSSION', 'https://wordpress.org/support/plugin/wpc-show-single-variations' );
 			! defined( 'WPC_URI' ) && define( 'WPC_URI', WOOSV_URI );

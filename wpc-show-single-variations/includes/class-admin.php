@@ -2,50 +2,59 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'Woosv_Admin' ) ) {
-	class Woosv_Admin {
-		protected static $instance = null;
+    class Woosv_Admin {
+        protected static $instance = null;
 
-		public static function instance() {
-			if ( is_null( self::$instance ) ) {
-				self::$instance = new self();
-			}
+        public static function instance() {
+            if ( is_null( self::$instance ) ) {
+                self::$instance = new self();
+            }
 
-			return self::$instance;
-		}
+            return self::$instance;
+        }
 
-		public function init() {
-			// load text-domain
-			load_plugin_textdomain( 'wpc-show-single-variations', false, basename( WOOSV_DIR ) . '/languages/' );
-		}
+        public function init() {
+            // load text-domain
+            load_plugin_textdomain( 'wpc-show-single-variations', false, basename( WOOSV_DIR ) . '/languages/' );
+        }
 
-		public function admin_enqueue_scripts( $hook ) {
-			wp_enqueue_style( 'woosv-backend', WOOSV_URI . 'assets/css/backend.css', [ 'woocommerce_admin_styles' ], WOOSV_VERSION );
-			wp_enqueue_script( 'woosv-backend', WOOSV_URI . 'assets/js/backend.js', [
-				'jquery',
-				'wc-enhanced-select',
-			], WOOSV_VERSION );
-		}
+        public function admin_enqueue_scripts( $hook ) {
+            wp_enqueue_style( 'woosv-backend', WOOSV_URI . 'assets/css/backend.css', [ 'woocommerce_admin_styles' ], WOOSV_VERSION );
+            wp_enqueue_script( 'woosv-backend', WOOSV_URI . 'assets/js/backend.js', [
+                    'jquery',
+                    'wc-enhanced-select',
+            ], WOOSV_VERSION );
+        }
 
-		public function admin_menu() {
-			add_submenu_page( 'wpclever', esc_html__( 'WPC Show Single Variations for WooCommerce', 'wpc-show-single-variations' ),
-				esc_html__( 'Show Single Variations', 'wpc-show-single-variations' ),
-				'manage_options',
-				'wpclever-woosv',
-				[ $this, 'setting_page_content' ] );
-		}
+        public function admin_menu() {
+            add_submenu_page( 'wpclever', esc_html__( 'WPC Show Single Variations for WooCommerce', 'wpc-show-single-variations' ),
+                    esc_html__( 'Show Single Variations', 'wpc-show-single-variations' ),
+                    'manage_options',
+                    'wpclever-woosv',
+                    [ $this, 'setting_page_content' ] );
+        }
 
-		public function register_settings() {
-			register_setting( 'woosv_settings', 'woosv_enable' );
-			register_setting( 'woosv_settings', 'woosv_hide_parent' );
-			register_setting( 'woosv_settings', 'woosv_hide_parent_exclude' );
-		}
+        public function register_settings() {
+            register_setting( 'woosv_settings', 'woosv_enable', [
+                    'type'              => 'string',
+                    'sanitize_callback' => 'sanitize_text_field',
+            ] );
+            register_setting( 'woosv_settings', 'woosv_hide_parent', [
+                    'type'              => 'string',
+                    'sanitize_callback' => 'sanitize_text_field',
+            ] );
+            register_setting( 'woosv_settings', 'woosv_hide_parent_exclude', [
+                    'type'              => 'string',
+                    'sanitize_callback' => 'sanitize_text_field',
+            ] );
+        }
 
-		public function setting_page_content() {
-			$active_tab          = sanitize_key( $_GET['tab'] ?? 'settings' );
-			$enable              = get_option( 'woosv_enable', 'yes' );
-			$hide_parent         = get_option( 'woosv_hide_parent' );
-			$hide_parent_exclude = get_option( 'woosv_hide_parent_exclude' );
-			?>
+        public function setting_page_content() {
+            $active_tab          = sanitize_key( $_GET['tab'] ?? 'settings' );
+            $enable              = get_option( 'woosv_enable', 'yes' );
+            $hide_parent         = get_option( 'woosv_hide_parent' );
+            $hide_parent_exclude = get_option( 'woosv_hide_parent_exclude' );
+            ?>
             <div class="wpclever_settings_page wrap">
                 <div class="wpclever_settings_page_header">
                     <a class="wpclever_settings_page_header_logo" href="https://wpclever.net/"
@@ -54,7 +63,7 @@ if ( ! class_exists( 'Woosv_Admin' ) ) {
                         <div class="wpclever_settings_page_title"><?php echo esc_html__( 'WPC Show Single Variations', 'wpc-show-single-variations' ) . ' ' . esc_html( WOOSV_VERSION ); ?></div>
                         <div class="wpclever_settings_page_desc about-text">
                             <p>
-								<?php printf( /* translators: stars */ esc_html__( 'Thank you for using our plugin! If you are satisfied, please reward it a full five-star %s rating.', 'wpc-show-single-variations' ), '<span style="color:#ffb900">&#9733;&#9733;&#9733;&#9733;&#9733;</span>' ); ?>
+                                <?php printf( /* translators: stars */ esc_html__( 'Thank you for using our plugin! If you are satisfied, please reward it a full five-star %s rating.', 'wpc-show-single-variations' ), '<span style="color:#ffb900">&#9733;&#9733;&#9733;&#9733;&#9733;</span>' ); ?>
                                 <br/>
                                 <a href="<?php echo esc_url( WOOSV_REVIEWS ); ?>"
                                    target="_blank"><?php esc_html_e( 'Reviews', 'wpc-show-single-variations' ); ?></a> |
@@ -68,28 +77,28 @@ if ( ! class_exists( 'Woosv_Admin' ) ) {
                     </div>
                 </div>
                 <h2></h2>
-				<?php if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] ) { ?>
+                <?php if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] ) { ?>
                     <div class="notice notice-success is-dismissible">
                         <p><?php esc_html_e( 'Settings updated.', 'wpc-show-single-variations' ); ?></p>
                     </div>
-				<?php } ?>
+                <?php } ?>
                 <div class="wpclever_settings_page_nav">
                     <h2 class="nav-tab-wrapper">
                         <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-woosv&tab=settings' ) ); ?>"
                            class="<?php echo $active_tab === 'settings' ? 'nav-tab nav-tab-active' : 'nav-tab'; ?>">
-							<?php esc_html_e( 'Settings', 'wpc-show-single-variations' ); ?>
+                            <?php esc_html_e( 'Settings', 'wpc-show-single-variations' ); ?>
                         </a>
                         <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-woosv&tab=tools' ) ); ?>"
                            class="<?php echo $active_tab === 'tools' ? 'nav-tab nav-tab-active' : 'nav-tab'; ?>">
-							<?php esc_html_e( 'Tools', 'wpc-show-single-variations' ); ?>
+                            <?php esc_html_e( 'Tools', 'wpc-show-single-variations' ); ?>
                         </a>
                         <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-kit' ) ); ?>" class="nav-tab">
-							<?php esc_html_e( 'Essential Kit', 'wpc-show-single-variations' ); ?>
+                            <?php esc_html_e( 'Essential Kit', 'wpc-show-single-variations' ); ?>
                         </a>
                     </h2>
                 </div>
                 <div class="wpclever_settings_page_content">
-					<?php if ( $active_tab === 'settings' ) { ?>
+                    <?php if ( $active_tab === 'settings' ) { ?>
                         <form method="post" action="options.php">
                             <table class="form-table">
                                 <tr>
@@ -120,115 +129,115 @@ if ( ! class_exists( 'Woosv_Admin' ) ) {
                                                     data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'wpc-show-single-variations' ); ?>"
                                                     data-action="woocommerce_json_search_products_and_variations"
                                                     data-exclude_type="variation,simple">
-												<?php
-												$_product_ids = explode( ',', $hide_parent_exclude );
+                                                <?php
+                                                $_product_ids = explode( ',', $hide_parent_exclude );
 
-												foreach ( $_product_ids as $_product_id ) {
-													$_product = wc_get_product( $_product_id );
+                                                foreach ( $_product_ids as $_product_id ) {
+                                                    $_product = wc_get_product( $_product_id );
 
-													if ( $_product ) {
-														echo '<option value="' . esc_attr( $_product_id ) . '" selected="selected">' . wp_kses_post( $_product->get_formatted_name() ) . '</option>';
-													}
-												}
-												?>
+                                                    if ( $_product ) {
+                                                        echo '<option value="' . esc_attr( $_product_id ) . '" selected="selected">' . wp_kses_post( $_product->get_formatted_name() ) . '</option>';
+                                                    }
+                                                }
+                                                ?>
                                             </select> </label>
                                         <span class="description"><?php esc_html_e( 'Choose variable products that will not be hide.', 'wpc-show-single-variations' ); ?></span>
                                     </td>
                                 </tr>
                                 <tr class="submit">
                                     <th colspan="2">
-										<?php settings_fields( 'woosv_settings' ); ?><?php submit_button(); ?>
+                                        <?php settings_fields( 'woosv_settings' ); ?><?php submit_button(); ?>
                                     </th>
                                 </tr>
                             </table>
                         </form>
-					<?php } elseif ( $active_tab === 'tools' ) { ?>
+                    <?php } elseif ( $active_tab === 'tools' ) { ?>
                         <table class="form-table">
                             <tr>
                                 <th><?php esc_html_e( 'Re-init variations', 'wpc-show-single-variations' ); ?></th>
                                 <td>
-									<?php
-									$num   = absint( $_GET['num'] ?? 50 );
-									$paged = absint( $_GET['paged'] ?? 1 );
+                                    <?php
+                                    $num   = absint( $_GET['num'] ?? 50 );
+                                    $paged = absint( $_GET['paged'] ?? 1 );
 
-									if ( isset( $_GET['act'] ) && ( $_GET['act'] === 'init' ) ) {
-										$args = [
-											'post_type'      => 'product_variation',
-											'posts_per_page' => $num,
-											'paged'          => $paged
-										];
+                                    if ( isset( $_GET['act'] ) && ( $_GET['act'] === 'init' ) ) {
+                                        $args = [
+                                                'post_type'      => 'product_variation',
+                                                'posts_per_page' => $num,
+                                                'paged'          => $paged
+                                        ];
 
-										$posts = get_posts( $args );
+                                        $posts = get_posts( $args );
 
-										if ( ! empty( $posts ) ) {
-											foreach ( $posts as $post ) {
-												$variation_id   = $post->ID;
-												$parent_id      = wp_get_post_parent_id( $variation_id );
-												$parent_product = wc_get_product( $parent_id );
+                                        if ( ! empty( $posts ) ) {
+                                            foreach ( $posts as $post ) {
+                                                $variation_id   = $post->ID;
+                                                $parent_id      = wp_get_post_parent_id( $variation_id );
+                                                $parent_product = wc_get_product( $parent_id );
 
-												if ( ! $parent_product ) {
-													continue;
-												}
+                                                if ( ! $parent_product ) {
+                                                    continue;
+                                                }
 
-												// taxonomies
-												$taxonomies = apply_filters( 'woosv_init_taxonomies', [
-													'product_cat',
-													'product_tag',
-													'wpc-brand'
-												] );
+                                                // taxonomies
+                                                $taxonomies = apply_filters( 'woosv_init_taxonomies', [
+                                                        'product_cat',
+                                                        'product_tag',
+                                                        'wpc-brand'
+                                                ] );
 
-												foreach ( $taxonomies as $taxonomy ) {
-													$terms = (array) wp_get_post_terms( $parent_id, $taxonomy, [ "fields" => "ids" ] );
-													wp_set_post_terms( $variation_id, $terms, $taxonomy );
-												}
+                                                foreach ( $taxonomies as $taxonomy ) {
+                                                    $terms = (array) wp_get_post_terms( $parent_id, $taxonomy, [ "fields" => "ids" ] );
+                                                    wp_set_post_terms( $variation_id, $terms, $taxonomy );
+                                                }
 
-												$variation = new WC_Product_Variation( $variation_id );
+                                                $variation = new WC_Product_Variation( $variation_id );
 
-												if ( ! $variation ) {
-													return;
-												}
+                                                if ( ! $variation ) {
+                                                    return;
+                                                }
 
-												$variation->set_menu_order( $parent_product->get_menu_order() );
-												$variation->save();
+                                                $variation->set_menu_order( $parent_product->get_menu_order() );
+                                                $variation->save();
 
-												// attributes
-												$attributes = $variation->get_variation_attributes();
+                                                // attributes
+                                                $attributes = $variation->get_variation_attributes();
 
-												if ( ! empty( $attributes ) ) {
-													foreach ( $attributes as $key => $term ) {
-														$attr_tax = str_replace( 'attribute_', '', $key );
-														wp_set_post_terms( $variation_id, $term, $attr_tax );
-													}
-												}
+                                                if ( ! empty( $attributes ) ) {
+                                                    foreach ( $attributes as $key => $term ) {
+                                                        $attr_tax = str_replace( 'attribute_', '', $key );
+                                                        wp_set_post_terms( $variation_id, $term, $attr_tax );
+                                                    }
+                                                }
 
-												// parent attributes
-												$parent_attributes = $parent_product->get_attributes();
+                                                // parent attributes
+                                                $parent_attributes = $parent_product->get_attributes();
 
-												if ( ! empty( $parent_attributes ) ) {
-													foreach ( $parent_attributes as $parent_attribute ) {
-														if ( $parent_attribute->get_variation() ) {
-															continue;
-														}
+                                                if ( ! empty( $parent_attributes ) ) {
+                                                    foreach ( $parent_attributes as $parent_attribute ) {
+                                                        if ( $parent_attribute->get_variation() ) {
+                                                            continue;
+                                                        }
 
-														$attr_tax = $parent_attribute->get_taxonomy();
-														$terms    = (array) $parent_attribute->get_terms();
+                                                        $attr_tax = $parent_attribute->get_taxonomy();
+                                                        $terms    = (array) $parent_attribute->get_terms();
 
-														if ( ! empty( $terms ) ) {
-															$tmp = [];
+                                                        if ( ! empty( $terms ) ) {
+                                                            $tmp = [];
 
-															foreach ( $terms as $term ) {
-																$tmp[] = $term->term_id;
-															}
+                                                            foreach ( $terms as $term ) {
+                                                                $tmp[] = $term->term_id;
+                                                            }
 
-															wp_set_post_terms( $variation_id, $tmp, $attr_tax );
-														}
-													}
-												}
-											}
+                                                            wp_set_post_terms( $variation_id, $tmp, $attr_tax );
+                                                        }
+                                                    }
+                                                }
+                                            }
 
-											echo '<span style="color: #2271b1; font-weight: 700">' . esc_html__( 'Refreshing...', 'wpc-show-single-variations' ) . '</span>';
-											echo '<p class="description">' . esc_html__( 'Please wait until it has finished!', 'wpc-show-single-variations' ) . '</p>';
-											?>
+                                            echo '<span style="color: #2271b1; font-weight: 700">' . esc_html__( 'Refreshing...', 'wpc-show-single-variations' ) . '</span>';
+                                            echo '<p class="description">' . esc_html__( 'Please wait until it has finished!', 'wpc-show-single-variations' ) . '</p>';
+                                            ?>
                                             <script type="text/javascript">
                                                 (function ($) {
                                                     $(function () {
@@ -238,19 +247,19 @@ if ( ! class_exists( 'Woosv_Admin' ) ) {
                                                     });
                                                 })(jQuery);
                                             </script>
-											<?php
-										} else {
-											echo '<span style="color: #2271b1; font-weight: 700">' . esc_html__( 'Finished!', 'wpc-show-single-variations' ) . '</span>';
-										}
-									} else {
-										echo '<a class="button btn" href="' . esc_url( admin_url( 'admin.php?page=wpclever-woosv&tab=tools&act=init' ) ) . '">' . esc_html__( 'Re-init variations', 'wpc-show-single-variations' ) . '</a>';
-										echo '<p class="description">' . esc_html__( 'Re-init variations\' data to make it works with product category/tag. This process may take a while.', 'wpc-show-single-variations' ) . '</p>';
-									}
-									?>
+                                            <?php
+                                        } else {
+                                            echo '<span style="color: #2271b1; font-weight: 700">' . esc_html__( 'Finished!', 'wpc-show-single-variations' ) . '</span>';
+                                        }
+                                    } else {
+                                        echo '<a class="button btn" href="' . esc_url( admin_url( 'admin.php?page=wpclever-woosv&tab=tools&act=init' ) ) . '">' . esc_html__( 'Re-init variations', 'wpc-show-single-variations' ) . '</a>';
+                                        echo '<p class="description">' . esc_html__( 'Re-init variations\' data to make it works with product category/tag. This process may take a while.', 'wpc-show-single-variations' ) . '</p>';
+                                    }
+                                    ?>
                                 </td>
                             </tr>
                         </table>
-					<?php } ?>
+                    <?php } ?>
                 </div><!-- /.wpclever_settings_page_content -->
                 <div class="wpclever_settings_page_suggestion">
                     <div class="wpclever_settings_page_suggestion_label">
@@ -272,98 +281,98 @@ if ( ! class_exists( 'Woosv_Admin' ) ) {
                     </div>
                 </div>
             </div>
-			<?php
-		}
+            <?php
+        }
 
-		public function action_links( $links, $file ) {
-			static $plugin;
+        public function action_links( $links, $file ) {
+            static $plugin;
 
-			if ( ! isset( $plugin ) ) {
-				$plugin = plugin_basename( WOOSV_FILE );
-			}
+            if ( ! isset( $plugin ) ) {
+                $plugin = plugin_basename( WOOSV_FILE );
+            }
 
-			if ( $plugin === $file ) {
-				$settings = '<a href="' . esc_url( admin_url( 'admin.php?page=wpclever-woosv&tab=settings' ) ) . '">' . esc_html__( 'Settings', 'wpc-show-single-variations' ) . '</a>';
-				array_unshift( $links, $settings );
-			}
+            if ( $plugin === $file ) {
+                $settings = '<a href="' . esc_url( admin_url( 'admin.php?page=wpclever-woosv&tab=settings' ) ) . '">' . esc_html__( 'Settings', 'wpc-show-single-variations' ) . '</a>';
+                array_unshift( $links, $settings );
+            }
 
-			return (array) $links;
-		}
+            return (array) $links;
+        }
 
-		public function row_meta( $links, $file ) {
-			static $plugin;
+        public function row_meta( $links, $file ) {
+            static $plugin;
 
-			if ( ! isset( $plugin ) ) {
-				$plugin = plugin_basename( WOOSV_FILE );
-			}
+            if ( ! isset( $plugin ) ) {
+                $plugin = plugin_basename( WOOSV_FILE );
+            }
 
-			if ( $plugin === $file ) {
-				$row_meta = [
-					'support' => '<a href="' . esc_url( WOOSV_DISCUSSION ) . '" target="_blank">' . esc_html__( 'Community support', 'wpc-show-single-variations' ) . '</a>',
-				];
+            if ( $plugin === $file ) {
+                $row_meta = [
+                        'support' => '<a href="' . esc_url( WOOSV_DISCUSSION ) . '" target="_blank">' . esc_html__( 'Community support', 'wpc-show-single-variations' ) . '</a>',
+                ];
 
-				return array_merge( $links, $row_meta );
-			}
+                return array_merge( $links, $row_meta );
+            }
 
-			return (array) $links;
-		}
+            return (array) $links;
+        }
 
-		public function add_fields( $loop, $variation_data, $variation ) {
-			echo '<div class="form-row form-row-full woosv-variation-settings">';
-			echo '<label>' . esc_html__( 'WPC Show Single Variations', 'wpc-show-single-variations' ) . ' <a href="' . esc_url( admin_url( 'admin.php?page=wpclever-woosv' ) ) . '" target="_blank">Default settings</a></label>';
-			echo '<div class="woosv-variation-wrap">';
+        public function add_fields( $loop, $variation_data, $variation ) {
+            echo '<div class="form-row form-row-full woosv-variation-settings">';
+            echo '<label>' . esc_html__( 'WPC Show Single Variations', 'wpc-show-single-variations' ) . ' <a href="' . esc_url( admin_url( 'admin.php?page=wpclever-woosv' ) ) . '" target="_blank">Default settings</a></label>';
+            echo '<div class="woosv-variation-wrap">';
 
-			woocommerce_wp_select( [
-				'id'      => 'woosv_enable_' . $variation->ID,
-				'label'   => esc_html__( 'Enable', 'wpc-show-single-variations' ),
-				'name'    => 'woosv_enable[' . $variation->ID . ']',
-				'value'   => get_post_meta( $variation->ID, 'woosv_enable', true ) ?: 'default',
-				'options' => [
-					'default' => esc_html__( 'Default', 'wpc-show-single-variations' ),
-					'enable'  => esc_html__( 'Enable', 'wpc-show-single-variations' ),
-					'disable' => esc_html__( 'Disable', 'wpc-show-single-variations' ),
-					'reverse' => esc_html__( 'Reverse', 'wpc-show-single-variations' )
-				]
-			] );
+            woocommerce_wp_select( [
+                    'id'      => 'woosv_enable_' . $variation->ID,
+                    'label'   => esc_html__( 'Enable', 'wpc-show-single-variations' ),
+                    'name'    => 'woosv_enable[' . $variation->ID . ']',
+                    'value'   => get_post_meta( $variation->ID, 'woosv_enable', true ) ?: 'default',
+                    'options' => [
+                            'default' => esc_html__( 'Default', 'wpc-show-single-variations' ),
+                            'enable'  => esc_html__( 'Enable', 'wpc-show-single-variations' ),
+                            'disable' => esc_html__( 'Disable', 'wpc-show-single-variations' ),
+                            'reverse' => esc_html__( 'Reverse', 'wpc-show-single-variations' )
+                    ]
+            ] );
 
-			woocommerce_wp_text_input( [
-				'id'    => 'woosv_name_' . $variation->ID,
-				'label' => esc_html__( 'Custom name', 'wpc-show-single-variations' ),
-				'name'  => 'woosv_name[' . $variation->ID . ']',
-				'value' => get_post_meta( $variation->ID, 'woosv_name', true ) ?: '',
-			] );
+            woocommerce_wp_text_input( [
+                    'id'    => 'woosv_name_' . $variation->ID,
+                    'label' => esc_html__( 'Custom name', 'wpc-show-single-variations' ),
+                    'name'  => 'woosv_name[' . $variation->ID . ']',
+                    'value' => get_post_meta( $variation->ID, 'woosv_name', true ) ?: '',
+            ] );
 
-			echo '</div></div>';
-		}
+            echo '</div></div>';
+        }
 
-		public function save_fields( $post_id ) {
-			if ( isset( $_POST['woosv_enable'][ $post_id ] ) ) {
-				update_post_meta( $post_id, 'woosv_enable', sanitize_key( $_POST['woosv_enable'][ $post_id ] ) );
-			}
+        public function save_fields( $post_id ) {
+            if ( isset( $_POST['woosv_enable'][ $post_id ] ) ) {
+                update_post_meta( $post_id, 'woosv_enable', sanitize_key( $_POST['woosv_enable'][ $post_id ] ) );
+            }
 
-			if ( isset( $_POST['woosv_name'][ $post_id ] ) ) {
-				update_post_meta( $post_id, 'woosv_name', sanitize_text_field( $_POST['woosv_name'][ $post_id ] ) );
-			}
-		}
+            if ( isset( $_POST['woosv_name'][ $post_id ] ) ) {
+                update_post_meta( $post_id, 'woosv_name', sanitize_text_field( $_POST['woosv_name'][ $post_id ] ) );
+            }
+        }
 
-		public function duplicate_variation( $old_variation_id, $new_variation_id ) {
-			if ( $enable = get_post_meta( $old_variation_id, 'woosv_enable', true ) ) {
-				update_post_meta( $new_variation_id, 'woosv_enable', $enable );
-			}
+        public function duplicate_variation( $old_variation_id, $new_variation_id ) {
+            if ( $enable = get_post_meta( $old_variation_id, 'woosv_enable', true ) ) {
+                update_post_meta( $new_variation_id, 'woosv_enable', $enable );
+            }
 
-			if ( $name = get_post_meta( $old_variation_id, 'woosv_name', true ) ) {
-				update_post_meta( $new_variation_id, 'woosv_name', $name );
-			}
-		}
+            if ( $name = get_post_meta( $old_variation_id, 'woosv_name', true ) ) {
+                update_post_meta( $new_variation_id, 'woosv_name', $name );
+            }
+        }
 
-		public function bulk_update_variation( $variation_id, $fields ) {
-			if ( ! empty( $fields['woosv_enable'] ) && ( $fields['woosv_enable'] !== 'wpcvb_no_change' ) ) {
-				update_post_meta( $variation_id, 'woosv_enable', sanitize_key( $fields['woosv_enable'] ) );
-			}
+        public function bulk_update_variation( $variation_id, $fields ) {
+            if ( ! empty( $fields['woosv_enable'] ) && ( $fields['woosv_enable'] !== 'wpcvb_no_change' ) ) {
+                update_post_meta( $variation_id, 'woosv_enable', sanitize_key( $fields['woosv_enable'] ) );
+            }
 
-			if ( ! empty( $fields['woosv_name'] ) ) {
-				update_post_meta( $variation_id, 'woosv_name', sanitize_text_field( $fields['woosv_name'] ) );
-			}
-		}
-	}
+            if ( ! empty( $fields['woosv_name'] ) ) {
+                update_post_meta( $variation_id, 'woosv_name', sanitize_text_field( $fields['woosv_name'] ) );
+            }
+        }
+    }
 }
