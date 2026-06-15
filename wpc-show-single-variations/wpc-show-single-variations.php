@@ -3,16 +3,16 @@
  * Plugin Name: WPC Show Single Variations for WooCommerce
  * Plugin URI: https://wpclever.net/
  * Description: WPC Show Single Variations helps you show all variations as single products on the archive pages.
- * Version: 2.4.8
+ * Version: 2.5.0
  * Author: WPClever
  * Author URI: https://wpclever.net
  * Text Domain: wpc-show-single-variations
  * Domain Path: /languages/
  * Requires Plugins: woocommerce
  * Requires at least: 4.0
- * Tested up to: 6.9
+ * Tested up to: 7.0
  * WC requires at least: 3.0
- * WC tested up to: 10.6
+ * WC tested up to: 10.8
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  **/
@@ -29,7 +29,7 @@ if ( ! class_exists( 'WPCleverWoosv' ) && class_exists( 'WC_Product' ) ) {
 		}
 
 		private function define_constants() {
-			! defined( 'WOOSV_VERSION' ) && define( 'WOOSV_VERSION', '2.4.8' );
+			! defined( 'WOOSV_VERSION' ) && define( 'WOOSV_VERSION', '2.5.0' );
 			! defined( 'WOOSV_LITE' ) && define( 'WOOSV_LITE', __FILE__ );
 			! defined( 'WOOSV_FILE' ) && define( 'WOOSV_FILE', __FILE__ );
 			! defined( 'WOOSV_URI' ) && define( 'WOOSV_URI', plugin_dir_url( __FILE__ ) );
@@ -37,14 +37,17 @@ if ( ! class_exists( 'WPCleverWoosv' ) && class_exists( 'WC_Product' ) ) {
 			! defined( 'WOOSV_REVIEWS' ) && define( 'WOOSV_REVIEWS', 'https://wordpress.org/support/plugin/wpc-show-single-variations/reviews/' );
 			! defined( 'WOOSV_CHANGELOG' ) && define( 'WOOSV_CHANGELOG', 'https://wordpress.org/plugins/wpc-show-single-variations/#developers' );
 			! defined( 'WOOSV_DISCUSSION' ) && define( 'WOOSV_DISCUSSION', 'https://wordpress.org/support/plugin/wpc-show-single-variations' );
-			! defined( 'WPC_URI' ) && define( 'WPC_URI', WOOSV_URI );
 		}
 
 		private function include_library() {
-			include 'includes/log/wpc-log.php';
-			include 'includes/dashboard/wpc-dashboard.php';
-			include 'includes/kit/wpc-kit.php';
-			include 'includes/hpos.php';
+			// WPC Core
+			require_once __DIR__ . '/includes/wpc-core/wpc-core.php';
+			wpc_core_register( [
+				'file'    => __FILE__,
+				'version' => WOOSV_VERSION,
+				'prefix'  => 'woosv',
+			] );
+
 			require_once 'includes/class-helper.php';
 			require_once 'includes/class-admin.php';
 			require_once 'includes/class-public.php';
@@ -52,7 +55,6 @@ if ( ! class_exists( 'WPCleverWoosv' ) && class_exists( 'WC_Product' ) ) {
 
 		private function admin_hooks() {
 			$woosv_admin = Woosv_Admin::instance();
-			add_action( 'init', [ $woosv_admin, 'init' ] );
 			add_action( 'admin_enqueue_scripts', [ $woosv_admin, 'admin_enqueue_scripts' ] );
 			add_action( 'admin_menu', [ $woosv_admin, 'admin_menu' ] );
 			add_action( 'admin_init', [ $woosv_admin, 'register_settings' ] );

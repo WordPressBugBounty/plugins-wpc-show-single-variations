@@ -12,12 +12,6 @@ if ( ! class_exists( 'Woosv_Admin' ) ) {
 
             return self::$instance;
         }
-
-        public function init() {
-            // load text-domain
-            load_plugin_textdomain( 'wpc-show-single-variations', false, basename( WOOSV_DIR ) . '/languages/' );
-        }
-
         public function admin_enqueue_scripts( $hook ) {
             wp_enqueue_style( 'woosv-backend', WOOSV_URI . 'assets/css/backend.css', [ 'woocommerce_admin_styles' ], WOOSV_VERSION );
             wp_enqueue_script( 'woosv-backend', WOOSV_URI . 'assets/js/backend.js', [
