@@ -44,7 +44,7 @@ if ( ! class_exists( 'Woosv_Admin' ) ) {
         }
 
         public function setting_page_content() {
-            $active_tab          = sanitize_key( $_GET['tab'] ?? 'settings' );
+            $active_tab          = sanitize_key( wp_unslash( $_GET['tab'] ?? 'settings' ) );
             $enable              = get_option( 'woosv_enable', 'yes' );
             $hide_parent         = get_option( 'woosv_hide_parent' );
             $hide_parent_exclude = get_option( 'woosv_hide_parent_exclude' );
@@ -71,7 +71,7 @@ if ( ! class_exists( 'Woosv_Admin' ) ) {
                     </div>
                 </div>
                 <h2></h2>
-                <?php if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] ) { ?>
+                <?php if ( isset( $_GET['settings-updated'] ) && sanitize_text_field( wp_unslash( $_GET['settings-updated'] ?? '' ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended ?>
                     <div class="notice notice-success is-dismissible">
                         <p><?php esc_html_e( 'Settings updated.', 'wpc-show-single-variations' ); ?></p>
                     </div>
@@ -151,8 +151,8 @@ if ( ! class_exists( 'Woosv_Admin' ) ) {
                                 <th><?php esc_html_e( 'Re-init variations', 'wpc-show-single-variations' ); ?></th>
                                 <td>
                                     <?php
-                                    $num   = absint( $_GET['num'] ?? 50 );
-                                    $paged = absint( $_GET['paged'] ?? 1 );
+                                    $num   = absint( wp_unslash( $_GET['num'] ?? 50 ) );
+                                    $paged = absint( wp_unslash( $_GET['paged'] ?? 1 ) );
 
                                     if ( isset( $_GET['act'] ) && ( $_GET['act'] === 'init' ) ) {
                                         $args = [
@@ -341,11 +341,11 @@ if ( ! class_exists( 'Woosv_Admin' ) ) {
 
         public function save_fields( $post_id ) {
             if ( isset( $_POST['woosv_enable'][ $post_id ] ) ) {
-                update_post_meta( $post_id, 'woosv_enable', sanitize_key( $_POST['woosv_enable'][ $post_id ] ) );
+                update_post_meta( $post_id, 'woosv_enable', sanitize_key( wp_unslash( $_POST['woosv_enable'] ?? '' )[ $post_id ] ) );
             }
 
             if ( isset( $_POST['woosv_name'][ $post_id ] ) ) {
-                update_post_meta( $post_id, 'woosv_name', sanitize_text_field( $_POST['woosv_name'][ $post_id ] ) );
+                update_post_meta( $post_id, 'woosv_name', sanitize_text_field( wp_unslash( $_POST['woosv_name'] ?? '' )[ $post_id ] ) );
             }
         }
 
